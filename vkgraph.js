@@ -1,3 +1,5 @@
+/*jslint browser: true, nomen: true */
+
 /**
  * Создание экземпляра VKGraph
  *
@@ -5,7 +7,9 @@
  * @this {VKGraph}
  * @param {HTMLElement} elem DOM-элемент, в который необходимо встроить график
  */
-var VKGraph = function(elem) {
+var VKGraph = function (elem) {
+	"use strict";
+
 	this._graphData = [];
 	this._elem = elem;
 };
@@ -17,14 +21,17 @@ var VKGraph = function(elem) {
  * @param {Array} data массив данных, где каждый элемент является массивом вида [timestamp, value]
  * @param {Boolean} useCover (optional) закрашивать или нет область под графиком
  */
-VKGraph.prototype.setStatisticsData = function(title, data, useCover) {
+VKGraph.prototype.setStatisticsData = function (title, data, useCover) {
+	"use strict";
+
 	var pushData = {'name' : title, 'd' : []},
-		i, lasting,
+		i,
+		lasting,
 		sum = 0,
 		currentDate = new Date();
 
-	for (i=0; i<data.length; i++) {
-		lasting = (currentDate < new Date(data[i][0]*1000)) ? '-' : '';
+	for (i = 0; i < data.length; i += 1) {
+		lasting = (currentDate < new Date(data[i][0] * 1000)) ? '-' : '';
 		pushData.d.push([data[i][0], data[i][1], lasting]);
 
 		sum += data[i][1];
@@ -41,7 +48,9 @@ VKGraph.prototype.setStatisticsData = function(title, data, useCover) {
 /**
  * Отрисовка
  */
-VKGraph.prototype.draw = function() {
+VKGraph.prototype.draw = function () {
+	"use strict";
+
 	var graphSWF = document.createElement('embed');
 	graphSWF.setAttribute('type', 'application/x-shockwave-flash');
 	graphSWF.setAttribute('width', '100%');

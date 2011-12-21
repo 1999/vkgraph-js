@@ -19,12 +19,12 @@ var VKGraph = function(elem) {
  */
 VKGraph.prototype.setStatisticsData = function(title, data, useCover) {
 	var pushData = {'name' : title, 'd' : []},
-		i, num, lasting,
+		i, lasting,
 		sum = 0,
 		currentDate = new Date();
 
 	for (i=0; i<data.length; i++) {
-		lasting = (currentDate < new Date(data[i][0])) ? '-' : '';
+		lasting = (currentDate < new Date(data[i][0]*1000)) ? '-' : '';
 		pushData.d.push([data[i][0], data[i][1], lasting]);
 
 		sum += data[i][1];
@@ -36,7 +36,7 @@ VKGraph.prototype.setStatisticsData = function(title, data, useCover) {
 	}
 
 	this._graphData.push(pushData);
-}
+};
 
 /**
  * Отрисовка
